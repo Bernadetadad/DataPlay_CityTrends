@@ -2,7 +2,7 @@
 title: "City Trends"
 author: "Bernadeta"
 date: "23/03/2019"
-output: html_document
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
@@ -15,7 +15,7 @@ library(ggthemes)
 Using gtrendsR package I can get all searches for term "London". Gprop allows to choose between "web", "news" , "images", "froogle", and "youtube" options. 
 
 
-```{r London}
+```{r London, echo=TRUE}
 google.trends <- gtrends(c("London"), gprop = "web", time = "all") #[[1]] using this would only take the 1st list
 LondonDateHits <-as.data.frame(google.trends$interest_over_time)
 ggplot(LondonDateHits, aes(date)) + 
@@ -27,7 +27,7 @@ ggplot(LondonDateHits, aes(date)) +
 
 If I would like to include multiple cities on the same graph
 
-```{r London+Paris}
+```{r London+Paris, echo=TRUE}
 google.trends <- gtrends(c("London", "Paris"), gprop = "web", time = "all") #[[1]] using this would only take the 1st list
 LoPaDateHits <-as.data.frame(google.trends$interest_over_time)
 ggplot(LoPaDateHits, aes(date, color=keyword)) + 
@@ -39,7 +39,7 @@ ggplot(LoPaDateHits, aes(date, color=keyword)) +
 
 To create city polygons I use http://polygons.openstreetmap.fr/index.py . Go to open street map and get OSM ID for the city (e.g. 65606 for London), then go to the polygons page, type in the OSM ID into the search box and you'll get poly file that has x and y coordinates. I save that file as London.txt and plot with geom_polygon
 
-```{r city polygon}
+```{r city polygon, echo=TRUE}
 LondonMap <- read.delim("London.txt", header = TRUE, stringsAsFactors = FALSE)
 ggplot(LondonMap, aes(x = x, y = y)) +
   geom_polygon() +
